@@ -1,6 +1,10 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 class PoppinTextEditor{
     public static void main(String[] args){
@@ -42,7 +46,19 @@ class PoppinTextEditor{
                 JFileChooser chooser = new JFileChooser();
                 int result = chooser.showOpenDialog(frame);
                 if(result == JFileChooser.APPROVE_OPTION){
-                    editor.setText(chooser.getSelectedFile().getAbsolutePath());
+                    //open file here
+                    File file = chooser.getSelectedFile();
+                    try{
+                        Scanner input = new Scanner(file);
+                        String text = "";
+                        while(input.hasNext()){
+                            text += input.nextLine() + "\n";
+                        }
+                        editor.setText(text);
+                    }catch(FileNotFoundException ex){
+                        ex.printStackTrace();
+                    }
+
                 }
             }
         });
@@ -51,7 +67,15 @@ class PoppinTextEditor{
                 JFileChooser chooser = new JFileChooser();
                 int result = chooser.showSaveDialog(frame);
                 if(result == JFileChooser.APPROVE_OPTION){
-                    editor.setText(chooser.getSelectedFile().getAbsolutePath());
+                    //save file here
+                    File file = chooser.getSelectedFile();
+                    try{
+                        PrintWriter output = new PrintWriter(file);
+                        output.println(editor.getText());
+                        output.close();
+                    }catch(FileNotFoundException ex){
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
@@ -60,7 +84,15 @@ class PoppinTextEditor{
                 JFileChooser chooser = new JFileChooser();
                 int result = chooser.showSaveDialog(frame);
                 if(result == JFileChooser.APPROVE_OPTION){
-                    editor.setText(chooser.getSelectedFile().getAbsolutePath());
+                    //save file here
+                    File file = chooser.getSelectedFile();
+                    try{
+                        PrintWriter output = new PrintWriter(file);
+                        output.println(editor.getText());
+                        output.close();
+                    }catch(FileNotFoundException ex){
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
